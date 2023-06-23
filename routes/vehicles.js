@@ -50,14 +50,13 @@ module.exports = (db) => {
             console.error('Failed to retrieve vehicles:', error);
             res.status(500).json({ error: 'Failed to retrieve vehicles' });
         }
-    });
-    
+    });   
     
 
     // Add a new vehicle
     router.post('/', async (req, res) => {
         try {
-            const { ownerID, VIN, make, model, year, mileage, mileageDate, licensePlate } = req.body;
+            const { ownerID, VIN, make, model, year, mileage, mileageDate, licensePlate, state } = req.body;
 
             const existingVehicle = await db.collection('vehicles').findOne({ VIN });
 
@@ -80,7 +79,8 @@ module.exports = (db) => {
                 ownerID,
                 mileage,
                 mileageDate,
-                licensePlate
+                licensePlate, 
+                state
             };
 
             await db.collection('vehicles').insertOne(newVehicle);
@@ -96,7 +96,7 @@ module.exports = (db) => {
     router.put('/:vehicleID', async (req, res) => {
         try {
             const { vehicleID } = req.params;
-            const { make, model, year, mileage, mileageDate, licensePlate } = req.body;
+            const { make, model, year, mileage, mileageDate, licensePlate, state } = req.body;
 
             const result = await db.collection('vehicles').updateOne(
                 { vehicleID },
@@ -107,7 +107,8 @@ module.exports = (db) => {
                         year,
                         mileage,
                         mileageDate,
-                        licensePlate
+                        licensePlate,
+                        state
                     },
                 }
             );

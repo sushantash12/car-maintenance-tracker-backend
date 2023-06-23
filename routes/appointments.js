@@ -96,7 +96,8 @@ module.exports = (db) => {
         }
     });
 
-    // Get all appointments of a provider, also give owner details using ownerID in vehicles collection, and maintenance record of the appointment using appointmentID in maintenanceRecords collection
+    // Get all appointments of a provider, also give owner details using ownerID in vehicles collection, 
+    // and maintenance record of the appointment using appointmentID in maintenanceRecords collection
     router.get('/provider/:providerID', async (req, res) => {
         try{
             const appointments = await db.collection('appointments').aggregate([

@@ -6,6 +6,7 @@ const { v4: uuidv4 } = require('uuid');
 const router = express.Router();
 
 module.exports = (db) => {
+    // admin login
     router.post('/login', async (req, res) => {
         try{
             const { username, password } = req.body;
@@ -28,6 +29,7 @@ module.exports = (db) => {
         }
     });
 
+    // change password
     router.put('/change-password', async (req, res) => {
         try{
             const { username, oldPassword, newPassword } = req.body;
@@ -46,7 +48,7 @@ module.exports = (db) => {
 
             const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-            const result = await db.collection('admin').updateOne({ username }, { $set: { password: hashedPassword } });
+            const result = await db.collection('admin').updateOne({ username }, { $set: { password: hashedPassword, isFirstTime:false } });
             if (result.modifiedCount === 0) {
                 throw new Error('Failed to change password');
             }
