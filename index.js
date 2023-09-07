@@ -22,7 +22,8 @@ app.get('/', (req, res) => {
 });
 
 // Connect to MongoDB using Mongoose
-mongoose.connect('mongodb://localhost:27017/car_maintenance_tracker', {
+mongoose.connect('mongodb+srv://sushantashish3:mYnJvUM0hsIJCc4I@cluster0.rbdvcua.mongodb.net/?retryWrites=true&w=majority', {
+  dbName:"car_maintenance_tracker",
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
